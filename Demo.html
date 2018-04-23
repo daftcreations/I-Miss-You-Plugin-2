@@ -1,0 +1,188 @@
+<html>
+    <head>
+        <title>AVICII</title>
+    <style>
+        body{
+            margin: 0px;
+            padding: 0px;
+            background-image: url(Paper%20Texture%20Image.jpg);
+            background-size: 100% 100%;
+        }    
+        #main{
+            height: 60px;
+            width: 500px;
+            background-color: #2d2d2d;
+            position: absolute;
+            top:50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            border-radius: 5px;
+            box-shadow: -10px 10px 20px rgba(0,0,0,.5);
+        }
+        #playorpause{
+            height: 31px;
+            width: 31px;
+          //  background-color: tomato;
+            border-radius: 50%;
+            position: absolute;
+            top:15px;
+            left: 30px;
+            box-shadow: 0px 0px 10px tomato,
+                0px 0px 20px tomato,
+                0px 0px 30px tomato;
+            cursor: pointer;
+        }
+        #playorpause img{
+           margin-top: -7px;
+            margin-left: -7px;
+        }
+        #seek-bar{
+            width: 300px;
+            height: 10px;
+            background-color:gray;
+            display: flex;
+            border-radius: 50px;
+            cursor: pointer;
+            position: absolute;
+            top:25px;
+            left: 80px;
+            
+        }
+        #fill{
+            height: 10px;
+            background-color:orange;
+            border-radius: 20px;
+            box-shadow: 0px 0px 10px tomato,
+                0px 0px 20px tomato,
+                0px 0px 30px tomato;
+        }
+        #currentTime{
+            font-family: Digital Dismay;
+            font-size: 30px;
+            position: absolute;
+            color: orange;
+            position: absolute;
+            left: 400px;
+            top:15px;
+            text-shadow: 0px 0px 10px tomato,
+                0px 0px 20px tomato,
+                0px 0px 30px tomato;
+        }
+        #name{
+            position: absolute;
+            top:56%;
+            left: 33.5%;
+            font-family: Bebas Neue;
+            color: #2d2d2d;
+            font-size: 23px;
+        }
+        #logo{
+            position: absolute;
+            top:10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        #hmenu,#smenu{
+            width: 100px;
+            height: 100px;
+            font-family: Bebas Neue;
+            color: #2d2d2d;
+            font-size: 25px;
+            line-height: 25px;
+            text-align: center;
+            position: absolute;
+            top:50%;
+            transform: translateY(-50%);
+        }
+        #smenu{
+            left: 96%;
+            transform: translate(-50%,-50%);
+        }
+        #tmenu{
+            font-family: Bebas Neue;
+            color: #2d2d2d;
+            font-size: 25px;
+            position: absolute;
+            top:95%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+        }
+    </style>
+    <script src="jquery-1.10.2.min.js"></script>
+       <link rel="shortcut icon" href="Avicii%20Icon.png"/>
+    <script src="jquery.iMissYou.js"></script>
+    </head>
+    <body>
+        <img src="Avicii.png" width="130px" id="logo"/>
+        <div id="hmenu">H<br>O<br>M<br>E</div>
+        <div id="smenu">S<br>H<br>O<br>P</div>
+        <div id="tmenu">TOP TRACK</div>
+        <div id="main">
+            <div id="playorpause"><img src="Play.png" width="45px"/></div>
+            
+            <div id="seek-bar">
+                <div id="fill"></div>
+                <div id="handle"></div>
+            </div>
+            
+            <div id="currentTime">00:00</div>
+        </div>
+        <div id="name">AVICII &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WAKE ME UP</div>
+    </body>
+    <script type="text/javascript">
+        var audio= new Audio('song.mp3');
+        var seekbar = document.getElementById("seek-bar");
+    
+        var playButton = document.getElementById("playorpause");
+    
+        var fillBar = document.getElementById("fill");
+        
+        var currentTime = document.getElementById("currentTime");
+        
+        playButton.addEventListener('click',function(){
+            if(audio.paused){
+                audio.play();
+            } 
+            else{
+                audio.pause();
+            }
+        });
+        
+        audio.addEventListener('play',function(){
+             $("#playorpause img").attr("src","Pause.png");
+        });
+        audio.addEventListener('pause',function(){
+             $("#playorpause img").attr("src","Play.png");
+        });
+        audio.addEventListener('timeupdate',function(){
+            var p = audio.currentTime / audio.duration; 
+          
+            fillBar.style.width = p * 100 +'%';
+            
+            convertTime(Math.round(audio.currentTime));
+        });
+        function convertTime(seconds)
+        {
+            var min = Math.floor(seconds / 60);
+            var sec = seconds % 60;
+            
+            min = (min < 10) ? "0" + min : min;
+            sec = (sec < 10) ? "0" + sec : sec;
+            currentTime.textContent = min + ":" + sec;
+            
+         
+        }
+        
+    </script>
+    <script>
+        jQuery(document).ready(function($){
+            $.iMissYou({
+                title: "AVICII - WAKE ME UP",
+                favicon: {
+                    enabled: true,
+                    src:'Heart.png'
+                }
+            });
+        });
+    </script>
+</html>
